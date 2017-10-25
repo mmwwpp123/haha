@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+		*{margin:0;padding:0;}
+		#box{position:relative;width:400px;height:200px;border:1px solid green;overflow:hidden;}
+		dl{position:absolute;top:0;width:200px;height:200px;}
+		dt{width:50px;height:200px;float:left;}
+		dd{width:150px;height:200px;float:left;}
+		img{width:150px;height:200px;}
+		</style>
+	</head>
+	<body>
+		<!--5个琴键，每个键宽：50，每个键对应的内容：150 -->
+		<div id="box">
+			<dl style="left:0px;">
+				<dt style="background:yellow;">黄键</dt>
+				<dd><img src="image/pic1.jpg" /></dd>
+			</dl>
+			<dl style="left:200px;">
+				<dt style="background:red;">红键</dt>
+				<dd><img src="image/pic2.jpg" /></dd>
+			</dl>
+			<dl style="left:250px;">
+				<dt style="background:green;">绿键</dt>
+				<dd><img src="image/pic3.jpg" /></dd>
+			</dl>
+			<dl style="left:300px;">
+				<dt style="background:blue;">蓝键</dt>
+				<dd><img src="image/pic4.jpg" /></dd>
+			</dl>
+			<dl style="left:350px;">
+				<dt style="background:orange;">橘键</dt>
+				<dd><img src="image/pic5.jpg" /></dd>
+			</dl>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+<script type="text/javascript">
+//0表示在左边，1：表示在右边
+let arr=[0,1,1,1,1];
+//右移
+//ord:点击的dt（琴键）的下标，从0开始
+function moveRight(ord){
+	let $dls=$("#box").children("dl");
+	for(let i=ord+1;i<$dls.length;i++){
+		$dls.eq(i).animate({"left":i*50+150},1000);
+		arr[i]=1;
+	}
+	console.log(arr);
+}
+//左移
+//ord:点击的dt（琴键）的下标，从0开始
+function moveLeft(ord){
+	let $dls=$("#box").children("dl");
+	for(let i=1;i<=ord;i++){
+		$dls.eq(i).animate({"left":i*50},1000);
+		arr[i]=0;
+	}
+	console.log(arr);
+}
+$(function(){
+	$("dt").click(function(){
+		let index=$("dt").index(this);
+		if(arr[index]==0){
+			moveRight(index);
+		}else{
+			moveLeft(index);
+		}
+	});
+});
+</script>
